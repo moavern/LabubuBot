@@ -18,23 +18,9 @@ SMTP_SERVER = 'smtp.gmail.com'
 SMTP_PORT = 587
 EMAIL_ADDRESS = 'mozoa149@gmail.com'
 EMAIL_PASSWORD = 'yvfxpjfvnwqcrszb'
-TO_SMS = '9542255945@tmomail.net'
 TO_EMAIL = 'mozoa149@gmail.com'
 
 # ---------- ALERT FUNCTIONS ----------
-def send_sms():
-    msg = MIMEText("LABUBU Set is in stock and added to your cart!")
-    msg['From'] = EMAIL_ADDRESS
-    msg['To'] = TO_SMS
-    try:
-        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
-            server.starttls()
-            server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-            server.send_message(msg)
-        print("SMS alert sent!")
-    except Exception as e:
-        print("SMS failed:", e)
-
 def send_email():
     msg = MIMEText("LABUBU Set of 6 is in stock and was added to your cart!")
     msg['From'] = EMAIL_ADDRESS
@@ -156,7 +142,6 @@ def main():
     print("Monitoring product page...")
     while True:
         if try_add_to_cart(driver):
-            send_sms()
             send_email()
             break
         time.sleep(REFRESH_INTERVAL)
